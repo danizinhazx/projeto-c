@@ -1,4 +1,21 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_USUARIOS 100 
+
+
+typedef struct {
+    char nome[50];
+    int idade;
+} Usuario;
+
+Usuario usuarios[MAX_USUARIOS]; 
+int totalUsuarios = 0; 
+
+void mensagemInicial() {
+    printf("Olá, mundo! Este é o início do projeto em C.\n");
+}
 
 void exibirMenu() {
     printf("====================================\n");
@@ -10,7 +27,34 @@ void exibirMenu() {
     printf("Escolha uma opção: ");
 }
 
+void cadastrarUsuario() {
+    if (totalUsuarios < MAX_USUARIOS) {
+        printf("Digite o nome do usuário: ");
+        scanf(" %[^\n]s", usuarios[totalUsuarios].nome);
+        printf("Digite a idade do usuário: ");
+        scanf("%d", &usuarios[totalUsuarios].idade);
+
+        totalUsuarios++;
+        printf("Usuário cadastrado com sucesso!\n\n");
+    } else {
+        printf("Limite de usuários atingido!\n");
+    }
+}
+
+void listarUsuarios() {
+    if (totalUsuarios == 0) {
+        printf("Nenhum usuário cadastrado ainda.\n");
+    } else {
+        printf("\n=== Lista de Usuários ===\n");
+        for (int i = 0; i < totalUsuarios; i++) {
+            printf("%d. Nome: %s, Idade: %d\n", i + 1, usuarios[i].nome, usuarios[i].idade);
+        }
+    }
+}
+
 int main() {
+    mensagemInicial();
+
     int opcao;
     
     do {
@@ -19,10 +63,10 @@ int main() {
         
         switch (opcao) {
             case 1:
-                printf("Função de cadastro ainda será implementada.\n");
+                cadastrarUsuario();
                 break;
             case 2:
-                printf("Função de listagem ainda será implementada.\n");
+                listarUsuarios();
                 break;
             case 3:
                 printf("Saindo do sistema...\n");
